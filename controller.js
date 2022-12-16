@@ -596,6 +596,9 @@ const AddClient = (request, response) => {
   );
 };
 
+const test = (request,response)=>{
+response.json({message:"146.59.225.93 is working"})
+} 
 const LoginAuth = (request, response) => {
   const { CodeEntreprise, NomEntreprise, Login } = request.body;
   pool.query(que.checkLogin, [Login], (error, results) => {
@@ -650,4 +653,5 @@ module.exports = {
   UpdateComposition,
   deleteComposition,
   LoginAuth,
+  test
 };
