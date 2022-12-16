@@ -41,6 +41,7 @@ router.put("/Updateproduct/:id", cors(), controller.updateProduct);
 router.put("/Updatecategorycompo/:id", cors(), controller.updateCatcompo);
 router.put("/Updatecomposition/:id", cors(), controller.UpdateComposition);
 router.delete("/Deletecomposition/:id", cors(), controller.deleteComposition);
+router.post("/LoginAuth",cors(),controller.LoginAuth);
 
 
 

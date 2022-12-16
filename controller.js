@@ -1,9 +1,13 @@
 const express = require("express");
+const { JsonWebTokenError } = require("jsonwebtoken");
 const pool = require("./connection");
 const que = require("./queries");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const jwt = require("jsonwebtoken");
+const res = require("express/lib/response");
+let secretKey = "YouwillneverHackusurbancomdigicaissedevsbdj";
 
 const createUser = (request, response) => {
   const {
@@ -17,11 +21,10 @@ const createUser = (request, response) => {
     DateAjout,
     Role,
   } = request.body;
-  pool.query(que.checkLoginexistance,[Login],(error, results) => {
-    if (results.rows.length){
-      response.status(502).json({ message: 'Login already exist !' });
-    }
-    else {
+  pool.query(que.checkLoginexistance, [Login], (error, results) => {
+    if (results.rows.length) {
+      response.json({ message: "Login already exist !" });
+    } else {
       pool.query(
         que.createuser,
         [
@@ -38,14 +41,13 @@ const createUser = (request, response) => {
         (error, results) => {
           if (error) {
             throw error;
-          }
-          else{
-            response.status(200).json({ message: 'User added successfully' });
+          } else {
+            response.status(200).json({ message: "User added successfully" });
           }
         }
       );
     }
-  }); 
+  });
 };
 
 const getUsers = (request, response) => {
@@ -126,7 +128,7 @@ const updateClient = (request, response) => {
   pool.query(que.getclientbyid, [id], (error, results) => {
     const noclientfound = !results.rows.length;
     if (noclientfound) {
-      response.send("No client found in database");
+      response.json({message:"No client found in database"});
     }
   });
   pool.query(
@@ -159,7 +161,7 @@ const updateClient = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Client updated succefully");
+      response.status(201).json({message:"Client updated succefully"});
     }
   );
 };
@@ -180,7 +182,7 @@ const updateUser = (request, response) => {
   pool.query(que.getuserbyid, [id], (error, results) => {
     const nouserfound = !results.rows.length;
     if (nouserfound) {
-      response.send("No user found in database");
+      response.json({message:"No user found in database"});
     }
   });
   pool.query(
@@ -201,7 +203,7 @@ const updateUser = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("User updated succefully");
+      response.status(201).json({message:"User updated succefully"});
     }
   );
 };
@@ -242,7 +244,7 @@ const updateCategory = (request, response) => {
   pool.query(que.getcategorybyid, [id], (error, results) => {
     const noucategoryfound = !results.rows.length;
     if (noucategoryfound) {
-      response.send("No category found in database");
+      response.json({message:"No category found in database"});
     }
   });
   pool.query(
@@ -252,7 +254,7 @@ const updateCategory = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Categorie updated succefully");
+      response.status(201).json({message:"Categorie updated succefully"});
     }
   );
 };
@@ -271,12 +273,12 @@ const updateProduct = (request, response) => {
     unite,
     promo,
     Type,
-    Affichage
+    Affichage,
   } = request.body;
   pool.query(que.getproductbyid, [id], (error, results) => {
     const noproductfound = !results.rows.length;
     if (noproductfound) {
-      response.send("No product found in database");
+      response.json({message:"No product found in database"});
     }
   });
   pool.query(
@@ -300,7 +302,7 @@ const updateProduct = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Product updated succefully");
+      response.status(201).json({message:"Product updated succefully"});
     }
   );
 };
@@ -325,7 +327,7 @@ const AddCategory = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Categorie created succefully");
+      response.status(201).json({message:"Categorie created succefully"});
     }
   );
 };
@@ -359,16 +361,29 @@ const getCompositionById = (request, response) => {
 };
 
 const AddComposition = (request, response) => {
-  const { idCat, CategorieCompos, AffichageCuisine, CompositionName, Produit, Affichage} =
-    request.body;
+  const {
+    idCat,
+    CategorieCompos,
+    AffichageCuisine,
+    CompositionName,
+    Produit,
+    Affichage,
+  } = request.body;
   pool.query(
     que.createcomposition,
-    [idCat, CategorieCompos, AffichageCuisine, CompositionName, Produit, Affichage],
+    [
+      idCat,
+      CategorieCompos,
+      AffichageCuisine,
+      CompositionName,
+      Produit,
+      Affichage,
+    ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Composition created succefully");
+      response.status(201).json({message:"Composition created succefully"});
     }
   );
 };
@@ -386,7 +401,7 @@ const UpdateComposition = (request, response) => {
   pool.query(que.getcompositionbyId, [id], (error, results) => {
     const nocatcompofound = !results.rows.length;
     if (nocatcompofound) {
-      response.send("No composition found in database");
+      response.json({message:"No composition found in database"});
     }
   });
   pool.query(
@@ -404,12 +419,12 @@ const UpdateComposition = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Composition update succefully");
+      response.status(201).json({message:"Composition update succefully"});
     }
   );
 };
 
-const deleteComposition = (request, response) =>{
+const deleteComposition = (request, response) => {
   const id = parseInt(request.params.id);
   pool.query(que.getcompositionbyId, [id], (error, results) => {
     const nocompositionfound = !results.rows.length;
@@ -423,7 +438,7 @@ const deleteComposition = (request, response) =>{
       response.status(200).json("Composition deleted");
     });
   });
-}
+};
 
 const getProductById = (request, response) => {
   const id = parseInt(request.params.id);
@@ -448,7 +463,7 @@ const Addproduct = (request, response) => {
     unite,
     promo,
     Type,
-    Affichage
+    Affichage,
   } = request.body;
   pool.query(
     que.addproduit,
@@ -464,13 +479,13 @@ const Addproduct = (request, response) => {
       unite,
       promo,
       Type,
-      Affichage
+      Affichage,
     ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Product created succefully");
+      response.status(201).json({message:"Product created succefully"});
     }
   );
 };
@@ -503,7 +518,7 @@ const createCategorieCompo = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Category composition created succefully");
+      response.status(201).send({message:"Category composition created succefully"});
     }
   );
 };
@@ -518,7 +533,7 @@ const updateCatcompo = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Category composition updated succefully");
+      response.status(201).json({message:"Category composition updated succefully"});
     }
   );
 };
@@ -576,9 +591,34 @@ const AddClient = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send("Client created succefully");
+      response.status(201).json({message:"Client created succefully"});
     }
   );
+};
+
+const LoginAuth = (request, response) => {
+  const { CodeEntreprise, NomEntreprise, Login } = request.body;
+  pool.query(que.checkLogin, [Login], (error, results) => {
+    const user = results.rows;
+    if (user.length == 0) {
+      response.json({message:"Vérifier Mot de Passe !"});
+    } else {
+      if (
+        CodeEntreprise == user[0].CodeEntreprise &&
+        NomEntreprise == user[0].NomEntreprise
+      ) {
+        jwt.sign(user[0],secretKey, (error, results) => {
+          if(error){
+            response.json({error:error});
+          }
+          else{
+            response.status(200).json({Token:results,user,message:"Vous êtes connecté"});
+          }});
+      } else {
+        response.json({message:"Vérifier Code Entreprise ou Nom Entreprise !"});
+      }
+    }  
+  });
 };
 
 module.exports = {
@@ -608,5 +648,6 @@ module.exports = {
   updateProduct,
   updateCatcompo,
   UpdateComposition,
-  deleteComposition
+  deleteComposition,
+  LoginAuth,
 };

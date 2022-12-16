@@ -25,7 +25,8 @@ const upodateproduit = 'UPDATE public."Products" SET  "idCat" = $1, "ProductName
 const updatecatcompo = 'UPDATE public."CategorieComposintion" SET idprod = $1, "Product" = $2, "CatgorieCompo" = $3, "Affichage" = $4  WHERE id = $5';
 const updatecomposition = 'UPDATE public."Composition" SET "idCat" = $1,"CategorieCompos" = $2,"AffichageCuisine" = $3,"CompositionName" = $4,"Produit" = $5,"Affichage" = $6 WHERE id = $7';
 const removecomposition = 'DELETE FROM public."Composition" WHERE id = $1';
-const checkLoginexistance = 'Select u FROM public."Users" u WHERE u."Login"=$1'
+const checkLoginexistance = 'SELECT u FROM public."Users" u WHERE u."Login"=$1';
+const checkLogin = 'SELECT * FROM public."Users" WHERE "Login"=$1';
 module.exports = {
   getusers,
   getuserbyid,
@@ -54,7 +55,8 @@ module.exports = {
   updatecatcompo,
   updatecomposition,
   removecomposition,
-  checkLoginexistance
+  checkLoginexistance,
+  checkLogin
 };
 
 
