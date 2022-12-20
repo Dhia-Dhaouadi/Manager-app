@@ -648,6 +648,5 @@ module.exports = {
   updateCatcompo,
   UpdateComposition,
   deleteComposition,
-  LoginAuth,
-  test
+  LoginAuth
 };
