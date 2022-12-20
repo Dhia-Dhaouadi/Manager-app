@@ -4,7 +4,7 @@ const router = express.Router();
 const cors = require("cors");
 const app = express();
 router.use(function (req, res, next) {
-     res.setHeader('Access-Control-Allow-Origin', '*');
+     res.setHeader('Access-Control-Allow-Origin', 'http://146.59.225.93:3000');
      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     res.setHeader('Access-Control-Allow-Credentials', true);

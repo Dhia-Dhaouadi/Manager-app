@@ -6,7 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const jwt = require("jsonwebtoken");
-const res = require("express/lib/response");
 let secretKey = "YouwillneverHackusurbancomdigicaissedevsbdj";
 
 const createUser = (request, response) => {
