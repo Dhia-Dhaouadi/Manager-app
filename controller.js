@@ -1,5 +1,4 @@
 const express = require("express");
-const { JsonWebTokenError } = require("jsonwebtoken");
 const pool = require("./connection");
 const que = require("./queries");
 const app = express();
