@@ -366,6 +366,7 @@ const AddComposition = (request, response) => {
     CompositionName,
     Produit,
     Affichage,
+    Prix
   } = request.body;
   pool.query(
     que.createcomposition,
@@ -376,6 +377,7 @@ const AddComposition = (request, response) => {
       CompositionName,
       Produit,
       Affichage,
+      Prix
     ],
     (error, results) => {
       if (error) {
@@ -395,6 +397,7 @@ const UpdateComposition = (request, response) => {
     CompositionName,
     Produit,
     Affichage,
+    Prix
   } = request.body;
   pool.query(que.getcompositionbyId, [id], (error, results) => {
     const nocatcompofound = !results.rows.length;
@@ -411,6 +414,7 @@ const UpdateComposition = (request, response) => {
       CompositionName,
       Produit,
       Affichage,
+      Prix,
       id,
     ],
     (error, results) => {
