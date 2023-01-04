@@ -49,7 +49,8 @@ const createUser = (request, response) => {
 };
 
 const getUsers = (request, response) => {
-  pool.query(que.getusers, (error, results) => {
+  const CodeEntreprise = parseInt(request.params.CodeEntreprise);
+  pool.query(que.getusers, [CodeEntreprise],(error, results) => {
     if (error) {
       throw error;
     }

@@ -1,4 +1,4 @@
-const getusers = 'SELECT * FROM public."Users" ORDER BY id ASC';
+const getusers = 'SELECT * FROM public."Users" WHERE "CodeEntreprise" = $1 ORDER BY id ASC';
 const getclients ='SELECT * FROM public."Client" WHERE "CodeEntreprise" = $1 ORDER BY id ASC';
 const getclientbyid = 'SELECT * FROM public."Client" WHERE id = $1';
 const getuserbyid = 'SELECT * FROM public."Users" WHERE id = $1';
