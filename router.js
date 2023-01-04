@@ -14,21 +14,21 @@ router.use(function (req, res, next) {
 
 
 router.get("/users", cors(), controller.getUsers);
-router.get("/clients", cors(), controller.getClients);
+router.get("/clients/:CodeEntreprise", cors(), controller.getClients);
 router.get("/client/:id", cors(), controller.getClientById);
 router.post("/Addclient", cors(), controller.AddClient);
 router.post("/createusers", cors(), controller.createUser);
 router.get("/user/:id", cors(), controller.getUserById);
-router.get("/categories", cors(), controller.getCategories);
+router.get("/categories/:CodeEntreprise", cors(), controller.getCategories);
 router.post("/addcategorie", cors(), controller.AddCategory);
-router.get("/products", cors(), controller.getProducts);
+router.get("/products/:CodeEntreprise", cors(), controller.getProducts);
 router.get("/product/:id", cors(), controller.getProductById);
 router.post("/Addproduct", cors(), controller.Addproduct);
-router.get("/CategorieCompo", cors(), controller.getCategorieCompo);
+router.get("/CategorieCompo/:CodeEntreprise", cors(), controller.getCategorieCompo);
 router.post("/CategorieCompo", cors(), controller.createCategorieCompo);
-router.get("/CategorieCompo/:id", cors(), controller.getCategorieCompoById);
+router.get("/categoriecompo/:id", cors(), controller.getCategorieCompoById);
 router.get("/categorie/:id", cors(), controller.getCategoryById);
-router.get("/compositions", cors(), controller.getComposition);
+router.get("/compositions/:CodeEntreprise", cors(), controller.getComposition);
 router.post("/Addcompositions", cors(), controller.AddComposition);
 router.get("/Composition/:id", cors(), controller.getCompositionById);
 router.delete("/Deleteuser/:id", cors(), controller.RemoveUser);
@@ -41,7 +41,5 @@ router.put("/Updatecategorycompo/:id", cors(), controller.updateCatcompo);
 router.put("/Updatecomposition/:id", cors(), controller.UpdateComposition);
 router.delete("/Deletecomposition/:id", cors(), controller.deleteComposition);
 router.post("/LoginAuth",cors(),controller.LoginAuth);
-
-
 
 module.exports = router;
