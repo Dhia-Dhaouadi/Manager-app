@@ -11,8 +11,6 @@ router.use(function (req, res, next) {
     res.setHeader("optionsSuccessStatus", 204,);
      next();
 });
-
-
 router.get("/users/:CodeEntreprise", cors(), controller.getUsers);
 router.get("/clients/:CodeEntreprise", cors(), controller.getClients);
 router.get("/client/:id", cors(), controller.getClientById);
@@ -41,5 +39,9 @@ router.put("/Updatecategorycompo/:id", cors(), controller.updateCatcompo);
 router.put("/Updatecomposition/:id", cors(), controller.UpdateComposition);
 router.delete("/Deletecomposition/:id", cors(), controller.deleteComposition);
 router.post("/LoginAuth",cors(),controller.LoginAuth);
+router.post("/CreateDevise",cors(),controller.Createdevise);
+router.get("/Getdevises/:CodeEntreprise",cors(),controller.getDevise);
+router.put("/Updatedevise/:id",cors(),controller.Updatedevise);
+router.delete("/Deletedevise/:id",cors(),controller.Removedevise);
 
 module.exports = router;

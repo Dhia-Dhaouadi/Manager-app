@@ -27,6 +27,10 @@ const updatecomposition = 'UPDATE public."Composition" SET "idCat" = $1,"Categor
 const removecomposition = 'DELETE FROM public."Composition" WHERE id = $1';
 const checkLoginexistance = 'SELECT u FROM public."Users" u WHERE u."Login"=$1';
 const checkLogin = 'SELECT * FROM public."Users" WHERE "Login"=$1';
+const createdevise = 'INSERT INTO public."Devise" ("CodeEntreprise", "NomEntreprise", "Devise") VALUES ($1, $2, $3)';
+const getdevise = 'SELECT * FROM public."Devise" WHERE "CodeEntreprise" = $1 LIMIT 1';
+const updatedevise = 'UPDATE public."Devise" SET  "CodeEntreprise" = $1, "NomEntreprise" = $2, "Devise" = $3 WHERE id = $4';
+const removedevise = 'DELETE FROM public."Devise" WHERE id = $1';
 module.exports = {
   getusers,
   getuserbyid,
@@ -56,7 +60,11 @@ module.exports = {
   updatecomposition,
   removecomposition,
   checkLoginexistance,
-  checkLogin
+  checkLogin,
+  createdevise,
+  getdevise,
+  updatedevise,
+  removedevise
 };
 
 

@@ -50,7 +50,7 @@ const createUser = (request, response) => {
 
 const getUsers = (request, response) => {
   const CodeEntreprise = parseInt(request.params.CodeEntreprise);
-  pool.query(que.getusers, [CodeEntreprise],(error, results) => {
+  pool.query(que.getusers, [CodeEntreprise], (error, results) => {
     if (error) {
       throw error;
     }
@@ -60,7 +60,7 @@ const getUsers = (request, response) => {
 
 const getClients = (request, response) => {
   const CodeEntreprise = parseInt(request.params.CodeEntreprise);
-  pool.query(que.getclients,[CodeEntreprise], (error, results) => {
+  pool.query(que.getclients, [CodeEntreprise], (error, results) => {
     if (error) {
       throw error;
     }
@@ -129,7 +129,7 @@ const updateClient = (request, response) => {
   pool.query(que.getclientbyid, [id], (error, results) => {
     const noclientfound = !results.rows.length;
     if (noclientfound) {
-      response.json({message:"No client found in database"});
+      response.json({ message: "No client found in database" });
     }
   });
   pool.query(
@@ -163,7 +163,7 @@ const updateClient = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Client updated succefully"});
+      response.status(201).json({ message: "Client updated succefully" });
     }
   );
 };
@@ -184,30 +184,30 @@ const updateUser = (request, response) => {
   pool.query(que.getuserbyid, [id], (error, results) => {
     const nouserfound = !results.rows.length;
     if (nouserfound) {
-      response.json({message:"No user found in database"});
+      response.json({ message: "No user found in database" });
     }
   });
-      pool.query(
-        que.updateuser,
-        [
-          CodeEntreprise,
-          NomEntreprise,
-          NomUser,
-          PrenomUser,
-          Login,
-          Email,
-          Telephone,
-          DateAjout,
-          Role,
-          id,
-        ],
-        (error, results) => {
-          if (error) {
-            throw error;
-          }
-          response.status(201).json({message:"User updated succefully"});
-        }
-      );
+  pool.query(
+    que.updateuser,
+    [
+      CodeEntreprise,
+      NomEntreprise,
+      NomUser,
+      PrenomUser,
+      Login,
+      Email,
+      Telephone,
+      DateAjout,
+      Role,
+      id,
+    ],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).json({ message: "User updated succefully" });
+    }
+  );
 };
 
 const getClientById = (request, response) => {
@@ -232,7 +232,7 @@ const getUserById = (request, response) => {
 
 const getCategories = (request, response) => {
   const CodeEntreprise = parseInt(request.params.CodeEntreprise);
-  pool.query(que.getcategories,[CodeEntreprise], (error, results) => {
+  pool.query(que.getcategories, [CodeEntreprise], (error, results) => {
     if (error) {
       throw error;
     }
@@ -242,22 +242,36 @@ const getCategories = (request, response) => {
 
 const updateCategory = (request, response) => {
   const id = parseInt(request.params.id);
-  const { Categorie, Affichage, Affichagecuisine, Dateajoutcat, TVA, CodeEntreprise } =
-    request.body;
+  const {
+    Categorie,
+    Affichage,
+    Affichagecuisine,
+    Dateajoutcat,
+    TVA,
+    CodeEntreprise,
+  } = request.body;
   pool.query(que.getcategorybyid, [id], (error, results) => {
     const noucategoryfound = !results.rows.length;
     if (noucategoryfound) {
-      response.json({message:"No category found in database"});
+      response.json({ message: "No category found in database" });
     }
   });
   pool.query(
     que.updatecategorie,
-    [Categorie, Affichage, Affichagecuisine, Dateajoutcat, TVA, CodeEntreprise, id],
+    [
+      Categorie,
+      Affichage,
+      Affichagecuisine,
+      Dateajoutcat,
+      TVA,
+      CodeEntreprise,
+      id,
+    ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Categorie updated succefully"});
+      response.status(201).json({ message: "Categorie updated succefully" });
     }
   );
 };
@@ -277,12 +291,12 @@ const updateProduct = (request, response) => {
     promo,
     Type,
     Affichage,
-    CodeEntreprise
+    CodeEntreprise,
   } = request.body;
   pool.query(que.getproductbyid, [id], (error, results) => {
     const noproductfound = !results.rows.length;
     if (noproductfound) {
-      response.json({message:"No product found in database"});
+      response.json({ message: "No product found in database" });
     }
   });
   pool.query(
@@ -301,13 +315,13 @@ const updateProduct = (request, response) => {
       Type,
       Affichage,
       CodeEntreprise,
-      id
+      id,
     ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Product updated succefully"});
+      response.status(201).json({ message: "Product updated succefully" });
     }
   );
 };
@@ -323,8 +337,14 @@ const getCategoryById = (request, response) => {
 };
 
 const AddCategory = (request, response) => {
-  const { Categorie, Affichage, Affichagecuisine, Dateajoutcat, TVA, CodeEntreprise } =
-    request.body;
+  const {
+    Categorie,
+    Affichage,
+    Affichagecuisine,
+    Dateajoutcat,
+    TVA,
+    CodeEntreprise,
+  } = request.body;
   pool.query(
     que.addcategorie,
     [Categorie, Affichage, Affichagecuisine, Dateajoutcat, TVA, CodeEntreprise],
@@ -332,14 +352,14 @@ const AddCategory = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Categorie created succefully"});
+      response.status(201).json({ message: "Categorie created succefully" });
     }
   );
 };
 
 const getProducts = (request, response) => {
   const CodeEntreprise = parseInt(request.params.CodeEntreprise);
-  pool.query(que.getproducts, [CodeEntreprise],(error, results) => {
+  pool.query(que.getproducts, [CodeEntreprise], (error, results) => {
     if (error) {
       throw error;
     }
@@ -349,7 +369,7 @@ const getProducts = (request, response) => {
 
 const getComposition = (request, response) => {
   const CodeEntreprise = parseInt(request.params.CodeEntreprise);
-  pool.query(que.getcomposition, [CodeEntreprise],(error, results) => {
+  pool.query(que.getcomposition, [CodeEntreprise], (error, results) => {
     if (error) {
       throw error;
     }
@@ -376,7 +396,7 @@ const AddComposition = (request, response) => {
     Produit,
     Affichage,
     Prix,
-    CodeEntreprise
+    CodeEntreprise,
   } = request.body;
   pool.query(
     que.createcomposition,
@@ -388,13 +408,13 @@ const AddComposition = (request, response) => {
       Produit,
       Affichage,
       Prix,
-      CodeEntreprise
+      CodeEntreprise,
     ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Composition created succefully"});
+      response.status(201).json({ message: "Composition created succefully" });
     }
   );
 };
@@ -409,12 +429,12 @@ const UpdateComposition = (request, response) => {
     Produit,
     Affichage,
     Prix,
-    CodeEntreprise
+    CodeEntreprise,
   } = request.body;
   pool.query(que.getcompositionbyId, [id], (error, results) => {
     const nocatcompofound = !results.rows.length;
     if (nocatcompofound) {
-      response.json({message:"No composition found in database"});
+      response.json({ message: "No composition found in database" });
     }
   });
   pool.query(
@@ -434,7 +454,7 @@ const UpdateComposition = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Composition update succefully"});
+      response.status(201).json({ message: "Composition update succefully" });
     }
   );
 };
@@ -479,7 +499,7 @@ const Addproduct = (request, response) => {
     promo,
     Type,
     Affichage,
-    CodeEntreprise
+    CodeEntreprise,
   } = request.body;
   pool.query(
     que.addproduit,
@@ -496,20 +516,20 @@ const Addproduct = (request, response) => {
       promo,
       Type,
       Affichage,
-      CodeEntreprise
+      CodeEntreprise,
     ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Product created succefully"});
+      response.status(201).json({ message: "Product created succefully" });
     }
   );
 };
 
 const getCategorieCompo = (request, response) => {
   const CodeEntreprise = parseInt(request.params.CodeEntreprise);
-  pool.query(que.getcategorieCompo, [CodeEntreprise],(error, results) => {
+  pool.query(que.getcategorieCompo, [CodeEntreprise], (error, results) => {
     if (error) {
       throw error;
     }
@@ -528,7 +548,8 @@ const getCategorieCompoById = (request, response) => {
 };
 
 const createCategorieCompo = (request, response) => {
-  const { idprod, Product, CatgorieCompo, Affichage, CodeEntreprise } = request.body;
+  const { idprod, Product, CatgorieCompo, Affichage, CodeEntreprise } =
+    request.body;
   pool.query(
     que.createacetgoriecomo,
     [idprod, Product, CatgorieCompo, Affichage, CodeEntreprise],
@@ -536,14 +557,17 @@ const createCategorieCompo = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send({message:"Category composition created succefully"});
+      response
+        .status(201)
+        .send({ message: "Category composition created succefully" });
     }
   );
 };
 
 const updateCatcompo = (request, response) => {
   const id = parseInt(request.params.id);
-  const { idprod, Product, CatgorieCompo, Affichage, CodeEntreprise } = request.body;
+  const { idprod, Product, CatgorieCompo, Affichage, CodeEntreprise } =
+    request.body;
   pool.query(
     que.updatecatcompo,
     [idprod, Product, CatgorieCompo, Affichage, CodeEntreprise, id],
@@ -551,7 +575,9 @@ const updateCatcompo = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Category composition updated succefully"});
+      response
+        .status(201)
+        .json({ message: "Category composition updated succefully" });
     }
   );
 };
@@ -611,7 +637,7 @@ const AddClient = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).json({message:"Client created succefully"});
+      response.status(201).json({ message: "Client created succefully" });
     }
   );
 };
@@ -621,25 +647,80 @@ const LoginAuth = (request, response) => {
   pool.query(que.checkLogin, [Login], (error, results) => {
     const user = results.rows;
     if (user.length == 0) {
-      response.json({message:"Vérifier Mot de Passe !"});
+      response.json({ message: "Vérifier Mot de Passe !" });
     } else {
       if (
         CodeEntreprise == user[0].CodeEntreprise &&
         NomEntreprise == user[0].NomEntreprise
       ) {
-        jwt.sign(user[0],secretKey, (error, results) => {
-          if(error){
-            response.json({error:error});
+        jwt.sign(user[0], secretKey, (error, results) => {
+          if (error) {
+            response.json({ error: error });
+          } else {
+            response
+              .status(200)
+              .json({ Token: results, user, message: "Vous êtes connecté" });
           }
-          else{
-            response.status(200).json({Token:results,user,message:"Vous êtes connecté"});
-          }});
+        });
       } else {
-        response.json({message:"Vérifier Code Entreprise ou Nom Entreprise !"});
+        response.json({
+          message: "Vérifier Code Entreprise ou Nom Entreprise !",
+        });
       }
-    }  
+    }
   });
 };
+
+const Createdevise = (request, response) => {
+  const { CodeEntreprise, NomEntreprise, Devise } = request.body;
+  pool.query(
+    que.createdevise,
+    [CodeEntreprise, NomEntreprise, Devise],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).json({ message: "Devise created succefully" });
+    }
+  );
+};
+
+const getDevise = (request, response) => {
+  const CodeEntreprise = parseInt(request.params.CodeEntreprise);
+  pool.query(que.getdevise, [CodeEntreprise], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const Updatedevise = (request, response) => {
+  const id = parseInt(request.params.id);
+  const { CodeEntreprise, NomEntreprise, Devise } = request.body;
+  pool.query(
+    que.updatedevise,
+    [CodeEntreprise, NomEntreprise, Devise, id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).send({ message: "Devise update succefully" });
+    }
+  );
+};
+
+
+const Removedevise = (request, response) => {
+  const id = parseInt(request.params.id);
+    pool.query(que.removedevise, [id], (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json("Devise deleted");
+    });
+  }
+
 
 module.exports = {
   getUsers,
@@ -669,5 +750,9 @@ module.exports = {
   updateCatcompo,
   UpdateComposition,
   deleteComposition,
-  LoginAuth
+  LoginAuth,
+  Createdevise,
+  getDevise,
+  Updatedevise,
+  Removedevise
 };
