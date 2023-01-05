@@ -18,6 +18,7 @@ const createUser = (request, response) => {
     Telephone,
     DateAjout,
     Role,
+    Utilisateur,
   } = request.body;
   pool.query(que.checkLoginexistance, [Login], (error, results) => {
     if (results.rows.length) {
@@ -35,6 +36,7 @@ const createUser = (request, response) => {
           Telephone,
           DateAjout,
           Role,
+          Utilisateur,
         ],
         (error, results) => {
           if (error) {
@@ -180,6 +182,7 @@ const updateUser = (request, response) => {
     Telephone,
     DateAjout,
     Role,
+    Utilisateur,
   } = request.body;
   pool.query(que.getuserbyid, [id], (error, results) => {
     const nouserfound = !results.rows.length;
@@ -199,6 +202,7 @@ const updateUser = (request, response) => {
       Telephone,
       DateAjout,
       Role,
+      Utilisateur,
       id,
     ],
     (error, results) => {
@@ -643,7 +647,7 @@ const AddClient = (request, response) => {
 };
 
 const LoginAuth = (request, response) => {
-  const { CodeEntreprise, NomEntreprise, Login } = request.body;
+  const { CodeEntreprise, Utilisateur, Login } = request.body;
   pool.query(que.checkLogin, [Login], (error, results) => {
     const user = results.rows;
     if (user.length == 0) {
@@ -651,7 +655,7 @@ const LoginAuth = (request, response) => {
     } else {
       if (
         CodeEntreprise == user[0].CodeEntreprise &&
-        NomEntreprise == user[0].NomEntreprise
+        Utilisateur == user[0].Utilisateur
       ) {
         jwt.sign(user[0], secretKey, (error, results) => {
           if (error) {
